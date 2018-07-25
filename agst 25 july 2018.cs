@@ -1,0 +1,106 @@
+﻿using System;
+
+namespace CodeJam
+{
+    class ACGT
+    {
+        int MinChanges(int maxPeriod, string[] acgt)
+        {
+
+            string s1 = "";
+            int flag = 0;
+            int count = 0;
+            int k = 0;
+            int min = 10000;
+            for (int i = 0; i < acgt.Length; i++)
+            {
+                s1 = s1 + acgt[i];
+            }
+            if (s1.Length == maxPeriod)
+            {
+                return 0;
+            }
+            string s = "";
+            s = s + s1[0];
+
+            if (maxPeriod == 1)
+            {
+                for (int n = 0; n < s1.Length; n++)
+                {
+                    if (s1[n] != s[0])
+                    {
+                        count++;
+                    }
+                }
+                return count;
+            }
+
+
+
+            count = 0;
+            s = "";
+            for (int i = 0; i < maxPeriod; i++)
+            {
+                /* for(int m = 0;m<i;m++)
+                 {
+                     if(s1[m]==s1[i])
+                     {
+                         flag = 0;
+                     }
+                     else
+                     {
+                         flag = 1;
+                     }
+                 }*/
+
+                s = s + s1[i];
+                Console.WriteLine(s + "WORKING");
+
+
+                for (int j = s.Length; j < s1.Length; j++)
+                {
+                    Console.WriteLine(s1[k] + " " + s1[j]);
+                    if (s[k] != s1[j])
+                    {
+                        count++;
+                    }
+                    k++;
+                    if (k == s.Length)
+                    {
+                        k = 0;
+                    }
+                }
+                Console.WriteLine(count);
+                if (count < min)
+                {
+                    min = count;
+                }
+                count = 0;
+                k = 0;
+            }
+
+
+
+
+            // Console.WriteLine(s);
+            return min;
+
+        }
+
+        #region Testing code Do not change
+        public static void Main(String[] args)
+        {
+            ACGT aCGT = new ACGT();
+            String input = Console.ReadLine();
+            do
+            {
+                var inputParts = input.Split('|');
+                int maxPeriod = int.Parse(inputParts[0]);
+                string[] acgt = inputParts[1].Split(',');
+                Console.WriteLine(aCGT.MinChanges(maxPeriod, acgt));
+                input = Console.ReadLine();
+            } while (input != "-1");
+        }
+        #endregion
+    }
+}
